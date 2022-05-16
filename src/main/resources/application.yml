@@ -1,0 +1,13 @@
+server:
+  error:
+    include-stacktrace: never
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/checkpoint8
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
