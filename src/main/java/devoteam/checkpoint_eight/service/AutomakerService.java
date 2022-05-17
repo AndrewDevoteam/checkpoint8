@@ -25,9 +25,7 @@ public class AutomakerService {
 
     public Automaker findByName(String name){
          return utils.findaAutomakerModelOrThrowNotFound(name, automakerRepository);
-
     }
-
 
     public Automaker findByID(int id){
         return utils.findaAutomakerOrThrowNotFound(id, automakerRepository);

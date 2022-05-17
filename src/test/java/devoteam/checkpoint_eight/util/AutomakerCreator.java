@@ -7,7 +7,6 @@ public class AutomakerCreator {
         public static Automaker createAutomakerToBeSaved() {
             return Automaker.builder().name("BMW").build();
         }
-
         public static Automaker createValidAutomaker() {
             return Automaker.builder().name("BMW").id(1).build();
         }

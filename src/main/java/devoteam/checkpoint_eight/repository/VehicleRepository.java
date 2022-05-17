@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
-    Optional<Vehicle> searchByModel(String model);
+    List<Vehicle> searchByModel(String model);
 }

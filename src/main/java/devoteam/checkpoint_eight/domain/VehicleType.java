@@ -2,6 +2,7 @@ package devoteam.checkpoint_eight.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class VehicleType {
 
     @Id
@@ -23,6 +25,4 @@ public class VehicleType {
     @NotNull
     @NotEmpty(message = "The vehicle type cannot be empty")
     private String name;
-
-
 }

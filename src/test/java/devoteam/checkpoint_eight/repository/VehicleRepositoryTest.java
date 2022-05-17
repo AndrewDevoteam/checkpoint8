@@ -11,23 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-@DisplayName("Automaker Repository Test")
+@DisplayName("Vehicle Repository Test")
 public class VehicleRepositoryTest {
 
     @Autowired
-    private VehicleRepository vehicleRepository;
-    @Autowired
     private AutomakerRepository automakerRepository;
-//    private final VehicleCreator vehicleCreator = new VehicleCreator();
+    @Autowired
+    private VehicleTypeRepository vehicleTypeRepository;
+    @Autowired
+    private  VehicleRepository vehicleRepository;
 
     public Vehicle createVehicleToBeSaved() {
 
-        Automaker automaker = Automaker.builder().id(1).name("Ferrari").build();
+        Automaker automaker = Automaker.builder().name("Ferrari").build();
         automakerRepository.save(automaker);
-        VehicleType vehicleType = new VehicleType(1,"CAR");
+        VehicleType vehicleType = VehicleType.builder().name("CAR").build();
+        vehicleTypeRepository.save(vehicleType);
 
         return Vehicle.builder()
                 .model("Enzo")
@@ -72,11 +75,11 @@ public class VehicleRepositoryTest {
         Vehicle savedVehicle = this.vehicleRepository.save(vehicle);
 
         this.vehicleRepository.delete(vehicle);
-        Optional<Vehicle> animeOptional = this.vehicleRepository.findById(savedVehicle.getId());
+        Optional<Vehicle> vehicleOptional = this.vehicleRepository.findById(savedVehicle.getId());
 
         savedVehicle.setModel(("That time i got reincarnated as a slime"));
 
-        Assertions.assertThat(animeOptional.isEmpty()).isTrue();
+        Assertions.assertThat(vehicleOptional.isEmpty()).isTrue();
     }
 
     @Test
@@ -87,7 +90,7 @@ public class VehicleRepositoryTest {
 
         String name = savedVehicle.getModel();
 
-        Optional<Vehicle> vehicleOptional = this.vehicleRepository.searchByModel(name);
+        List<Vehicle> vehicleOptional = this.vehicleRepository.searchByModel(name);
 
         Assertions.assertThat(vehicleOptional).isNotEmpty();
         Assertions.assertThat(vehicleOptional).contains(savedVehicle);
@@ -99,7 +102,7 @@ public class VehicleRepositoryTest {
 
         String name = "Fake-Name";
 
-        Optional<Vehicle> vehicleOptional = this.vehicleRepository.searchByModel(name);
+        List<Vehicle> vehicleOptional = this.vehicleRepository.searchByModel(name);
 
         Assertions.assertThat(vehicleOptional).isEmpty();
     }
@@ -112,6 +115,4 @@ public class VehicleRepositoryTest {
         Assertions.assertThatThrownBy(() -> vehicleRepository.save(vehicle))
                 .isInstanceOf(ConstraintViolationException.class);
     }
-
-
 }

@@ -2,11 +2,11 @@ package devoteam.checkpoint_eight.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -29,11 +29,12 @@ public class Vehicle {
     private String year;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="automaker_id")
     @JsonBackReference
     private Automaker automaker;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name="vehicletype_id")
     private VehicleType vehicleType;
